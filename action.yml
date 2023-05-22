@@ -25,6 +25,10 @@ inputs:
     description: 'Filename or glob to fetch from GitHub releases.'
     required: false
     default: ''
+  github-release-draft:
+    description: 'Whether to publish the GitHub release as a draft.'
+    required: false
+    default: true
   npm-publish:
     description: 'Publish to npm.'
     required: false
@@ -94,6 +98,7 @@ runs:
       uses: softprops/action-gh-release@v1
       with:
         files: ${{ inputs['working-directory'] }}/${{ inputs['output-directory'] }}/*.tgz
+        draft: ${{ inputs['github-release-draft'] }}
     - name: Publish
       if: ${{ inputs['npm-publish'] == 'true' }}
       shell: bash
